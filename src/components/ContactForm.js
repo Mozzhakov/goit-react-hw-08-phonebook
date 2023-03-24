@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 import { nanoid } from 'nanoid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import css from './Styles/ContactForm.module.css';
 
 export const ContactForm = () => {
@@ -18,9 +20,8 @@ export const ContactForm = () => {
       return;
     }
     const newContact = {
-      createdAt: Date.now().toString(),
       name: name,
-      phone: number,
+      number: number,
       id: nanoid(),
     };
     dispatch(addContact(newContact));
@@ -36,37 +37,32 @@ export const ContactForm = () => {
   return (
     <>
       <form onSubmit={handlerSubmit} className={css.contactForm}>
-        <div className={css.contactForm__part}>
-          <label htmlFor="name" className={css.contactForm__label}>
-            Name
-          </label>
-          <input
-            id="name"
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            className={css.contactForm__input}
-          />
-        </div>
-        <div className={css.contactForm__part}>
-          <label htmlFor="number" className={css.contactForm__label}>
-            Number
-          </label>
-          <input
-            id="number"
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            className={css.contactForm__input}
-          />
-        </div>
-        <button type="submit" className={css.contactForm__btn}>
+        {/* <div className={css.contactForm__part}> */}
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="name"
+          type="text"
+          name="name"
+          label="Name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          autoComplete="name"
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="number"
+          type="tel"
+          name="number"
+          label="Number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          autoComplete="tel"
+        />
+        <Button variant="contained" type="submit">
           Add contact
-        </button>
+        </Button>
       </form>
     </>
   );

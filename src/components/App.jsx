@@ -1,34 +1,76 @@
-import { ContactForm } from './ContactForm';
-import { ContactList } from './ContactList';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Filter } from './Filter';
-import css from './Styles/App.module.css';
-import { getError, getIsLoading } from 'redux/selectors';
-import { fetchContacts } from 'redux/operations';
+import { MainLayout } from 'layout/MainLayout';
+import { Homepage } from 'pages/Homepage';
+import { Login } from 'pages/Login';
+import { Registration } from 'pages/Registration';
+import { Contacts } from 'pages/Contacts';
+import { fetchCurrentUser } from 'redux/auth/auth-operations';
+import {
+  getIsRefreshing,
+  getIsError,
+  getErrorMessage,
+} from 'redux/auth/auth-selectors';
 import { Loader } from './Loader';
+import { ToastContainer } from 'react-toastify';
+import { useNotify } from 'hooks/useNotify';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isRefreshing = useSelector(getIsRefreshing);
+  const isError = useSelector(getIsError);
+  const errorMessage = useSelector(getErrorMessage);
+  const { showFailure } = useNotify();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    if (isError) {
+      showFailure(errorMessage);
+    }
+  }, [errorMessage, isError, showFailure]);
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
   }, [dispatch]);
 
-  return (
-    <div>
-      <div className={css.phonebook}>
-        <h1>Phonebook</h1>
-        <ContactForm />
-      </div>
-      <div className={css.contacts}>
-        <h2>Contacts</h2>
-        <Filter />
-        {isLoading && !error && <Loader />}
-        <ContactList />
-      </div>
-    </div>
+  return isRefreshing ? (
+    <Loader />
+  ) : (
+    <>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route
+            index
+            element={
+              <PublicRoute component={<Homepage />} redirectTo="/contacts" />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={<PrivateRoute component={<Contacts />} redirectTo="/" />}
+          />
+
+          <Route
+            path="/login"
+            element={
+              <PublicRoute component={<Login />} redirectTo="/contacts" />
+            }
+          />
+          <Route
+            path="/registration"
+            element={
+              <PublicRoute
+                component={<Registration />}
+                redirectTo="/contacts"
+              />
+            }
+          />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <ToastContainer />
+    </>
   );
 };

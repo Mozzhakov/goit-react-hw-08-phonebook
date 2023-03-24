@@ -1,0 +1,22 @@
+.navLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.userIcon {
+  color: #ffffff;
+}
+
+.userEmail {
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* .userLogout {
+  justify-content: center;
+} */
+
+.userEnterLink {
+  color: inherit;
+  text-decoration: none;
+}

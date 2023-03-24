@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { changeFilter } from 'redux/sliceFilter';
+import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import css from './Styles/Filter.module.css';
 
@@ -12,14 +13,18 @@ export const Filter = () => {
 
   return (
     <div className={css.filter}>
-      <label htmlFor="filter" className={css.filter__label}>
-        Find contact by name
-      </label>
-      <input
+      <TextField
+        margin="normal"
+        required
+        fullWidth
         id="filter"
         type="text"
+        name="name"
+        label="Find contact by name"
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        autoComplete="name"
         onChange={handleChangeFilter}
-        className={css.filter__input}
+        style={{ width: '400px' }}
       />
     </div>
   );
