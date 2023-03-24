@@ -8,7 +8,6 @@ import { Filter } from 'components/Filter';
 import { getIsLoading } from 'redux/selectors';
 import { getError } from 'redux/selectors';
 import Typography from '@mui/material/Typography';
-import css from '../components/Styles/Contacts.module.css';
 
 export default function Contacts() {
   const dispatch = useDispatch();
@@ -21,7 +20,11 @@ export default function Contacts() {
 
   return (
     <>
-      <Typography variant="h3" gutterBottom className={css.contactsTitle}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        style={{ textAlign: 'center', marginTop: '40px' }}
+      >
         Phonebook
       </Typography>
       <ContactForm />
