@@ -10,7 +10,7 @@ import { getError } from 'redux/selectors';
 import Typography from '@mui/material/Typography';
 import css from '../components/Styles/Contacts.module.css';
 
-export const Contacts = () => {
+export default function Contacts() {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
@@ -30,4 +30,4 @@ export const Contacts = () => {
       <ContactList />
     </>
   );
-};
+}

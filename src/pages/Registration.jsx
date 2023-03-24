@@ -12,7 +12,7 @@ import { registration } from 'redux/auth/auth-operations';
 
 const theme = createTheme();
 
-export const Registration = () => {
+export default function Registration() {
   const dispatch = useDispatch();
 
   const handleSubmit = event => {
@@ -92,4 +92,4 @@ export const Registration = () => {
       </ThemeProvider>
     </>
   );
-};
+}

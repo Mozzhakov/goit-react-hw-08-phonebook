@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 
-export const Homepage = () => {
+export default function Homepage() {
   return (
     <>
       <Typography
@@ -12,4 +12,4 @@ export const Homepage = () => {
       </Typography>
     </>
   );
-};
+}

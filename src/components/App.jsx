@@ -2,12 +2,9 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { MainLayout } from 'layout/MainLayout';
-import { Homepage } from 'pages/Homepage';
-import { Login } from 'pages/Login';
-import { Registration } from 'pages/Registration';
-import { Contacts } from 'pages/Contacts';
+// import { Homepage } from 'pages/Homepage';
 import { fetchCurrentUser } from 'redux/auth/auth-operations';
 import {
   getIsRefreshing,
@@ -17,6 +14,11 @@ import {
 import { Loader } from './Loader';
 import { ToastContainer } from 'react-toastify';
 import { useNotify } from 'hooks/useNotify';
+
+const Homepage = lazy(() => import('pages/Homepage'));
+const Contacts = lazy(() => import('pages/Contacts'));
+const Login = lazy(() => import('pages/Login'));
+const Registration = lazy(() => import('pages/Registration'));
 
 export const App = () => {
   const dispatch = useDispatch();

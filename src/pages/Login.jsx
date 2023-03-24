@@ -12,7 +12,7 @@ import { login } from 'redux/auth/auth-operations';
 
 const theme = createTheme();
 
-export const Login = () => {
+export default function Login() {
   const dispatch = useDispatch();
   const handleSubmit = event => {
     event.preventDefault();
@@ -81,4 +81,4 @@ export const Login = () => {
       </ThemeProvider>
     </>
   );
-};
+}
