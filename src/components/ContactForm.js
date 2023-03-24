@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 import { nanoid } from 'nanoid';
+import { useNotify } from 'hooks/useNotify';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import css from './Styles/ContactForm.module.css';
@@ -9,6 +10,7 @@ import css from './Styles/ContactForm.module.css';
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
+  const { showFailure } = useNotify();
 
   const addNewContact = (name, number) => {
     const condition = contacts.find(
@@ -16,8 +18,7 @@ export const ContactForm = () => {
     );
 
     if (condition) {
-      alert(`${name} is already in contacts!`);
-      return;
+      return showFailure(`${name} is already in contacts!`);
     }
     const newContact = {
       name: name,
