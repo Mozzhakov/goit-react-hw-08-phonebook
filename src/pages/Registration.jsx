@@ -72,6 +72,10 @@ export default function Registration() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                minLength="8"
+                inputProps={{
+                  minLength: 8,
+                }}
               />
               <Button
                 type="submit"
