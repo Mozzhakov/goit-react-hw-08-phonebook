@@ -27,7 +27,7 @@ const authSlice = createSlice({
     },
     [registration.fulfilled](state, action) {
       state.user = action.payload.user;
-      state.token = action.patload.token;
+      state.token = action.payload.token;
       state.isLoggedIn = true;
     },
     [registration.rejected](state) {
